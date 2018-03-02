@@ -33,7 +33,7 @@ namespace Treinamento.DataAccess.SQL
 
         void IPedidosDAO.ExcluirPedido(int codigoPedido)
         {
-            string sqlQuery = $@"DELETE FROM dbo.tb_pedido WHERE cd_pedido = @cd_pedido";
+            string sqlQuery = $@"UPDATE dbo.tb_pedido SET in_desligado = 1 WHERE cd_pedido = @cd_pedido";
 
             SqlCommand deleteCommand = new SqlCommand(sqlQuery, _conexao);
 
@@ -47,8 +47,8 @@ namespace Treinamento.DataAccess.SQL
 
         Pedido IPedidosDAO.GravarNovoPedido(Pedido pedido)
         {
-            string sqlQuery = $@"INSERT INTO dbo.tb_pedido(nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido)  
-                                VALUES(@nr_pedido, @ds_pedido, @cd_tipo_pedido, @dt_pedido);
+            string sqlQuery = $@"INSERT INTO dbo.tb_pedido(nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido, in_desligado)  
+                                VALUES(@nr_pedido, @ds_pedido, @cd_tipo_pedido, @dt_pedido, 0);
                                 SELECT SCOPE_IDENTITY();";
 
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, _conexao);
@@ -75,7 +75,7 @@ namespace Treinamento.DataAccess.SQL
 
         List<Pedido> IPedidosDAO.RetornarPedidos()
         {
-            string sqlQuery = @"SELECT cd_pedido, nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido FROM tb_pedido";
+            string sqlQuery = @"SELECT cd_pedido, nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido FROM tb_pedido WHERE in_desligado = 0";
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, _conexao);
             _conexao.Open();
 
@@ -97,6 +97,7 @@ namespace Treinamento.DataAccess.SQL
                 }
             }
 
+            _conexao.Close();
             return pedidos;
         }
     }

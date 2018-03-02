@@ -76,7 +76,7 @@ namespace Treinamento.Presentation.Forms
         {
             _pedido = (Treinamento.Entities.Pedido)gridView.Rows[gridView.CurrentCell.RowIndex].DataBoundItem;
 
-            _pedidosBO.ExcluirPedido(_pedido.Codigo);
+            _pedidosBO.ExcluirPedido(_pedido);
 
             AtualizarGrid();
            
@@ -86,6 +86,8 @@ namespace Treinamento.Presentation.Forms
         {
             var itens = _pedidosBO.RetornarItens();
             gridView.DataSource = itens;
+
+            _pedido = null;
         }
     }
 }
