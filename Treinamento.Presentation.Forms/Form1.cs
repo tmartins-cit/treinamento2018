@@ -13,16 +13,17 @@ namespace Treinamento.Presentation.Forms
     public partial class Form1 : Form
     {
         private Treinamento.Entities.Pedido _pedido;
+
+        Treinamento.Business.Interfaces.IPedidos _pedidosBO;
+
         public Form1()
         {
             InitializeComponent();
+            _pedidosBO = Treinamento.Business.Factory.FactoryPedidos.CriarClassePedidos();
         }
 
         private void btnExecutar_Click(object sender, EventArgs e)
         {
-            Business.Interfaces.IPedidos pedidos = Treinamento.Business.Factory.FactoryPedidos.CriarClassePedidos();
-           
-
             Entities.Pedido novoPedido = new Entities.Pedido
             {
                 Data = DateTime.Now,
@@ -31,14 +32,9 @@ namespace Treinamento.Presentation.Forms
                 Numero = DateTime.Now.Second.ToString()
             };
 
-            pedidos.GravarPedido(novoPedido);
+           _pedidosBO.GravarPedido(novoPedido);
 
-
-            var itens = pedidos.RetornarItens();
-
-            gridView.DataSource = itens;
-
-            
+            AtualizarGrid();            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -65,12 +61,10 @@ namespace Treinamento.Presentation.Forms
         private void SalvarPedido()
         {
             _pedido.Descricao = txt_description.Text;
-            Treinamento.Business.Interfaces.IPedidos pedidosBO = Treinamento.Business.Factory.FactoryPedidos.CriarClassePedidos();
+            
+            _pedidosBO.AtualizarPedido(_pedido);
 
-            pedidosBO.AtualizarPedido(_pedido);
-            var itens = pedidosBO.RetornarItens();
-
-            gridView.DataSource = itens;
+            AtualizarGrid();
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
@@ -82,11 +76,15 @@ namespace Treinamento.Presentation.Forms
         {
             _pedido = (Treinamento.Entities.Pedido)gridView.Rows[gridView.CurrentCell.RowIndex].DataBoundItem;
 
-            Treinamento.Business.Interfaces.IPedidos pedidosBO = Treinamento.Business.Factory.FactoryPedidos.CriarClassePedidos();
+            _pedidosBO.ExcluirPedido(_pedido.Codigo);
 
-            pedidosBO.ExcluirPedido(_pedido.Codigo);
-            var itens = pedidosBO.RetornarItens();
+            AtualizarGrid();
+           
+        }
 
+        private void AtualizarGrid()
+        {
+            var itens = _pedidosBO.RetornarItens();
             gridView.DataSource = itens;
         }
     }
