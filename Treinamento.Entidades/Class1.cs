@@ -9,6 +9,6 @@ namespace Treinamento.Entidades
     public class Class1
     {
 		
-		private string minhavarial = "323232";
+		private string minhavarial = "alteracao martins";
     }
 }
