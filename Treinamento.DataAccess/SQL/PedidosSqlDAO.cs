@@ -16,11 +16,22 @@ namespace Treinamento.DataAccess.SQL
         
         void IPedidosDAO.AtualizarPedido(Pedido pedido)
         {
-            throw new NotImplementedException();
+          //  string sqlQuery = $@"INSERT INTO dbo.tb_pedidos ds_pedido VALUE @pedido WHERE cd_pedido = @codigoPedido)";
+
+            //throw new NotImplementedException();
         }
 
         void IPedidosDAO.ExcluirPedido(int codigoPedido)
         {
+            string sqlQuery = $@"DELETE FROM dbo.tb_pedido WHERE cd_pedido = @codigoPedido";
+            SqlCommand sqlCommand = new SqlCommand(sqlQuery, _conexao);
+            sqlCommand.Parameters.Add("@codigoPedido", SqlDbType.Int);
+            sqlCommand.Parameters["@codigoPedido"].Value = codigoPedido;
+
+            _conexao.Open();
+            sqlCommand.ExecuteNonQuery();
+            _conexao.Close();
+
             throw new NotImplementedException();
         }
 

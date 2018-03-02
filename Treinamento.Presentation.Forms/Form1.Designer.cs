@@ -31,6 +31,9 @@
             this.btnExecutar = new System.Windows.Forms.Button();
             this.gridView = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_excluir = new System.Windows.Forms.Button();
+            this.btn_editar = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -71,18 +74,48 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(654, 431);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
+            // btn_excluir
+            // 
+            this.btn_excluir.Location = new System.Drawing.Point(492, 465);
+            this.btn_excluir.Name = "btn_excluir";
+            this.btn_excluir.Size = new System.Drawing.Size(150, 23);
+            this.btn_excluir.TabIndex = 4;
+            this.btn_excluir.Text = "Excluir";
+            this.btn_excluir.UseVisualStyleBackColor = true;
+            this.btn_excluir.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btn_editar
+            // 
+            this.btn_editar.Location = new System.Drawing.Point(321, 465);
+            this.btn_editar.Name = "btn_editar";
+            this.btn_editar.Size = new System.Drawing.Size(150, 23);
+            this.btn_editar.TabIndex = 5;
+            this.btn_editar.Text = "Editar";
+            this.btn_editar.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 465);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(281, 20);
+            this.textBox1.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 446);
+            this.ClientSize = new System.Drawing.Size(654, 512);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btn_editar);
+            this.Controls.Add(this.btn_excluir);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "t";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -90,6 +123,9 @@
         private System.Windows.Forms.Button btnExecutar;
         private System.Windows.Forms.DataGridView gridView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btn_excluir;
+        private System.Windows.Forms.Button btn_editar;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
