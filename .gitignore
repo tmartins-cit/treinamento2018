@@ -1,0 +1,6 @@
+**/obj/*
+**/bin/*
+*.mdf
+**/packages/**
+**/sqlite3/**
+*.suo
