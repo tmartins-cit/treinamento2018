@@ -8,5 +8,7 @@ namespace Treinamento.Entidades
 {
     public class Class1
     {
+		
+		private string minhavarial = "323232";
     }
 }
