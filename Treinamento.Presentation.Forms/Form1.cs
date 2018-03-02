@@ -12,6 +12,7 @@ namespace Treinamento.Presentation.Forms
 {
     public partial class Form1 : Form
     {
+        private Treinamento.Entities.Pedido _pedido;
         public Form1()
         {
             InitializeComponent();
@@ -43,6 +44,50 @@ namespace Treinamento.Presentation.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
             //btnExecutar_Click(sender, e);
+        }
+
+        private void btn_load_Click(object sender, EventArgs e)
+        {
+            CarregarPedido();
+        }
+
+        private void CarregarPedido()
+        {
+            _pedido = (Treinamento.Entities.Pedido)gridView.Rows[gridView.CurrentCell.RowIndex].DataBoundItem;
+            txt_description.Text = _pedido.Descricao;
+        }
+
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            SalvarPedido();
+        }
+
+        private void SalvarPedido()
+        {
+            _pedido.Descricao = txt_description.Text;
+            Treinamento.Business.Interfaces.IPedidos pedidosBO = Treinamento.Business.Factory.FactoryPedidos.CriarClassePedidos();
+
+            pedidosBO.AtualizarPedido(_pedido);
+            var itens = pedidosBO.RetornarItens();
+
+            gridView.DataSource = itens;
+        }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            ExcluirPedido();
+        }
+
+        private void ExcluirPedido()
+        {
+            _pedido = (Treinamento.Entities.Pedido)gridView.Rows[gridView.CurrentCell.RowIndex].DataBoundItem;
+
+            Treinamento.Business.Interfaces.IPedidos pedidosBO = Treinamento.Business.Factory.FactoryPedidos.CriarClassePedidos();
+
+            pedidosBO.ExcluirPedido(_pedido.Codigo);
+            var itens = pedidosBO.RetornarItens();
+
+            gridView.DataSource = itens;
         }
     }
 }

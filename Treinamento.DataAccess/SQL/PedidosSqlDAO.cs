@@ -16,12 +16,33 @@ namespace Treinamento.DataAccess.SQL
         
         void IPedidosDAO.AtualizarPedido(Pedido pedido)
         {
-            throw new NotImplementedException();
+            string sqlQuery = $@"UPDATE dbo.tb_pedido SET ds_pedido = @ds_pedido WHERE cd_pedido = @cd_pedido";
+
+            SqlCommand updateCommand = new SqlCommand(sqlQuery, _conexao);
+
+            updateCommand.Parameters.Add("@ds_pedido", SqlDbType.VarChar);
+            updateCommand.Parameters["@ds_pedido"].Value = pedido.Descricao;
+
+            updateCommand.Parameters.Add("@cd_pedido", SqlDbType.Int);
+            updateCommand.Parameters["@cd_pedido"].Value = pedido.Codigo;
+
+            _conexao.Open();
+            updateCommand.ExecuteNonQuery();
+            _conexao.Close();
         }
 
         void IPedidosDAO.ExcluirPedido(int codigoPedido)
         {
-            throw new NotImplementedException();
+            string sqlQuery = $@"DELETE FROM dbo.tb_pedido WHERE cd_pedido = @cd_pedido";
+
+            SqlCommand deleteCommand = new SqlCommand(sqlQuery, _conexao);
+
+            deleteCommand.Parameters.Add("@cd_pedido", SqlDbType.Int);
+            deleteCommand.Parameters["@cd_pedido"].Value = codigoPedido;
+
+            _conexao.Open();
+            deleteCommand.ExecuteNonQuery();
+            _conexao.Close();
         }
 
         Pedido IPedidosDAO.GravarNovoPedido(Pedido pedido)

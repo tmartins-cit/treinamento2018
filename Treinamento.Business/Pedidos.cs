@@ -29,6 +29,14 @@ namespace Treinamento.Business
 
             return pedido;
         }
+        public void AtualizarPedido(Entities.Pedido pedido)
+        {
+            _pedidosDAO.AtualizarPedido(pedido);
+        }
 
+        public void ExcluirPedido(int codigo)
+        {
+            _pedidosDAO.ExcluirPedido(codigo);
+        }
     }
 }
