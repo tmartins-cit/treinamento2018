@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,22 +14,24 @@ namespace Treinamento.DataAccess.SQL
     public class PedidosSqlDAO : IPedidosDAO
     {
         private readonly SqlConnection _conexao = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["MEU_DB"].ToString());
-        
+
+        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MEU_DB"].ToString();
+
         void IPedidosDAO.AtualizarPedido(Pedido pedido)
         {
-            string sqlQuery = $@"UPDATE dbo.tb_pedido SET ds_pedido = @ds_pedido WHERE cd_pedido = @cd_pedido";
+            var sqlQuery = $@"UPDATE dbo.tb_pedido SET ds_pedido = @ds_pedido WHERE cd_pedido = @cd_pedido";
 
-            SqlCommand updateCommand = new SqlCommand(sqlQuery, _conexao);
-
-            updateCommand.Parameters.Add("@ds_pedido", SqlDbType.VarChar);
-            updateCommand.Parameters["@ds_pedido"].Value = pedido.Descricao;
-
-            updateCommand.Parameters.Add("@cd_pedido", SqlDbType.Int);
-            updateCommand.Parameters["@cd_pedido"].Value = pedido.Codigo;
-
-            _conexao.Open();
-            updateCommand.ExecuteNonQuery();
-            _conexao.Close();
+            using (SqlConnection sql = new SqlConnection(connectionString))
+            {
+                sql.Execute(sql: sqlQuery,
+                            param: new
+                            {
+                                ds_pedido = pedido.Descricao,
+                                cd_pedido = pedido.Codigo
+                            },
+                            commandType: CommandType.Text
+                            );
+            }
         }
 
         void IPedidosDAO.ExcluirPedido(int codigoPedido)
@@ -75,29 +78,16 @@ namespace Treinamento.DataAccess.SQL
 
         List<Pedido> IPedidosDAO.RetornarPedidos()
         {
-            string sqlQuery = @"SELECT cd_pedido, nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido FROM tb_pedido";
-            SqlCommand sqlCommand = new SqlCommand(sqlQuery, _conexao);
-            _conexao.Open();
+            string sqlQuery = "SELECT cd_pedido as Codigo, nr_numero_pedido as Numero, ds_pedido as Descricao, cd_tipo_pedido as TipoPedido, dt_pedido as Data, in_desligado as Desligado FROM tb_pedido";
 
-            List<Pedido> pedidos = new List<Pedido>();
-            using (IDataReader sqlDataReader = sqlCommand.ExecuteReader())
+            using (SqlConnection sql = new SqlConnection(connectionString))
             {
-                while (sqlDataReader.Read())
-                {
-                    Entities.Pedido pedido = new Entities.Pedido
-                    {
-                        Codigo = Convert.ToInt32(sqlDataReader["cd_pedido"]),
-                        Descricao = sqlDataReader["ds_pedido"].ToString(),
-                        Numero = sqlDataReader["nr_numero_pedido"].ToString(),
-                        TipoPedido = (Entities.Enum.TipoPedido)Convert.ToInt32(sqlDataReader["cd_tipo_pedido"]),
-                        Data = Convert.ToDateTime(sqlDataReader["dt_pedido"])
-                    };
 
-                    pedidos.Add(pedido);
-                }
+                return sql.Query<Pedido>(sql: sqlQuery, commandType: CommandType.Text).ToList();
+
             }
 
-            return pedidos;
+
         }
     }
 }

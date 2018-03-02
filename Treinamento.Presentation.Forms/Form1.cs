@@ -39,7 +39,7 @@ namespace Treinamento.Presentation.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //btnExecutar_Click(sender, e);
+            AtualizarGrid();
         }
 
         private void btn_load_Click(object sender, EventArgs e)

@@ -14,6 +14,9 @@ namespace Treinamento.Presentation.Forms
         [STAThread]
         static void Main()
         {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            string completePath = System.IO.Directory.GetParent(path).Parent.Parent.Parent.FullName;
+            AppDomain.CurrentDomain.SetData("DataDirectory", completePath);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
