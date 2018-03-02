@@ -33,22 +33,22 @@ namespace Treinamento.DataAccess.SQL
 
         void IPedidosDAO.ExcluirPedido(int codigoPedido)
         {
-            string sqlQuery = $@"DELETE FROM dbo.tb_pedido WHERE cd_pedido = @cd_pedido";
+            string sqlQuery = $@"UPDATE dbo.tb_pedido SET in_desligado = 1 WHERE cd_pedido = @cd_pedido";
 
-            SqlCommand deleteCommand = new SqlCommand(sqlQuery, _conexao);
+            SqlCommand updateCommand = new SqlCommand(sqlQuery, _conexao);
 
-            deleteCommand.Parameters.Add("@cd_pedido", SqlDbType.Int);
-            deleteCommand.Parameters["@cd_pedido"].Value = codigoPedido;
+            updateCommand.Parameters.Add("@cd_pedido", SqlDbType.Int);
+            updateCommand.Parameters["@cd_pedido"].Value = codigoPedido;
 
             _conexao.Open();
-            deleteCommand.ExecuteNonQuery();
+            updateCommand.ExecuteNonQuery();
             _conexao.Close();
         }
 
         Pedido IPedidosDAO.GravarNovoPedido(Pedido pedido)
         {
-            string sqlQuery = $@"INSERT INTO dbo.tb_pedido(nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido)  
-                                VALUES(@nr_pedido, @ds_pedido, @cd_tipo_pedido, @dt_pedido);
+            string sqlQuery = $@"INSERT INTO dbo.tb_pedido(nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido, in_desligado)  
+                                VALUES(@nr_pedido, @ds_pedido, @cd_tipo_pedido, @dt_pedido, @in_desligado);
                                 SELECT SCOPE_IDENTITY();";
 
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, _conexao);
@@ -65,6 +65,8 @@ namespace Treinamento.DataAccess.SQL
             sqlCommand.Parameters.Add("@dt_pedido", SqlDbType.DateTime);
             sqlCommand.Parameters["@dt_pedido"].Value = pedido.Data;
 
+            sqlCommand.Parameters.Add("@in_desligado", SqlDbType.Bit);
+            sqlCommand.Parameters["@in_desligado"].Value = 0;
 
             _conexao.Open();
             pedido.Codigo = Convert.ToInt32(sqlCommand.ExecuteScalar());
@@ -75,7 +77,7 @@ namespace Treinamento.DataAccess.SQL
 
         List<Pedido> IPedidosDAO.RetornarPedidos()
         {
-            string sqlQuery = @"SELECT cd_pedido, nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido FROM tb_pedido";
+            string sqlQuery = @"SELECT cd_pedido, nr_numero_pedido, ds_pedido, cd_tipo_pedido, dt_pedido FROM tb_pedido where in_desligado = 0";
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, _conexao);
             _conexao.Open();
 
@@ -84,18 +86,22 @@ namespace Treinamento.DataAccess.SQL
             {
                 while (sqlDataReader.Read())
                 {
-                    Entities.Pedido pedido = new Entities.Pedido
-                    {
-                        Codigo = Convert.ToInt32(sqlDataReader["cd_pedido"]),
-                        Descricao = sqlDataReader["ds_pedido"].ToString(),
-                        Numero = sqlDataReader["nr_numero_pedido"].ToString(),
-                        TipoPedido = (Entities.Enum.TipoPedido)Convert.ToInt32(sqlDataReader["cd_tipo_pedido"]),
-                        Data = Convert.ToDateTime(sqlDataReader["dt_pedido"])
-                    };
+                   
+                   
+                        Entities.Pedido pedido = new Entities.Pedido
+                        {
+                            Codigo = Convert.ToInt32(sqlDataReader["cd_pedido"]),
+                            Descricao = sqlDataReader["ds_pedido"].ToString(),
+                            Numero = sqlDataReader["nr_numero_pedido"].ToString(),
+                            TipoPedido = (Entities.Enum.TipoPedido)Convert.ToInt32(sqlDataReader["cd_tipo_pedido"]),
+                            Data = Convert.ToDateTime(sqlDataReader["dt_pedido"])
+                        };
 
-                    pedidos.Add(pedido);
-                }
+                        pedidos.Add(pedido);
+                    }
+                
             }
+            _conexao.Close();
 
             return pedidos;
         }
