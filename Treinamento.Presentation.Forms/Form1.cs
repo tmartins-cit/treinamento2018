@@ -24,17 +24,30 @@ namespace Treinamento.Presentation.Forms
 
         private void btnExecutar_Click(object sender, EventArgs e)
         {
+            GerarDados();      
+        }
+
+        private void GerarDados()
+        {
+            
             Entities.Pedido novoPedido = new Entities.Pedido
             {
                 Data = DateTime.Now,
-                Descricao =  $"Meu pedido numero {Guid.NewGuid()}",
+                Descricao = $"Meu pedido numero {Guid.NewGuid()}",
                 TipoPedido = Entities.Enum.TipoPedido.Interno,
                 Numero = DateTime.Now.Second.ToString()
             };
 
-           _pedidosBO.GravarPedido(novoPedido);
+            try
+            {
+                _pedidosBO.GravarPedido(novoPedido);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
 
-            AtualizarGrid();            
+            AtualizarGrid();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -61,10 +74,18 @@ namespace Treinamento.Presentation.Forms
         private void SalvarPedido()
         {
             _pedido.Descricao = txt_description.Text;
-            
-            _pedidosBO.AtualizarPedido(_pedido);
+
+            try
+            {
+                _pedidosBO.AtualizarPedido(_pedido);
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
 
             AtualizarGrid();
+            txt_description.Clear();
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
@@ -76,7 +97,14 @@ namespace Treinamento.Presentation.Forms
         {
             _pedido = (Treinamento.Entities.Pedido)gridView.Rows[gridView.CurrentCell.RowIndex].DataBoundItem;
 
-            _pedidosBO.ExcluirPedido(_pedido);
+            try
+            {
+                _pedidosBO.ExcluirPedido(_pedido);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
 
             AtualizarGrid();
            

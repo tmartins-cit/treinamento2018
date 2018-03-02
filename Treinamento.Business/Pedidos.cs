@@ -11,10 +11,12 @@ namespace Treinamento.Business
     public class Pedidos : Treinamento.Business.Interfaces.IPedidos
     {
         private DataAccess.Interfaces.IPedidosDAO _pedidosDAO;
+        private IValidacaoPedidos _validacao;
 
-        public Pedidos(DataAccess.Interfaces.IPedidosDAO pedidosDAO)
+        public Pedidos(DataAccess.Interfaces.IPedidosDAO pedidosDAO, IValidacaoPedidos validacao)
         {
             _pedidosDAO = pedidosDAO;
+            _validacao = validacao;
         }
 
         public DataAccess.Interfaces.IPedidosDAO pedidasDAO = Treinamento.DataAccess.Factory.FactoryPedidosDAO.CriarClassePedidosDAO();
@@ -25,12 +27,15 @@ namespace Treinamento.Business
 
         public Pedido GravarPedido(Pedido pedido)
         {
+            _validacao.Validar(pedido);
+
             pedido = _pedidosDAO.GravarNovoPedido(pedido);
 
             return pedido;
         }
         public void AtualizarPedido(Entities.Pedido pedido)
         {
+            _validacao.Validar(pedido);
             _pedidosDAO.AtualizarPedido(pedido);
         }
 

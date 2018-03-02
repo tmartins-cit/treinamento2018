@@ -11,7 +11,8 @@ namespace Treinamento.Business.Factory
         public static Interfaces.IPedidos CriarClassePedidos()
         {
             DataAccess.Interfaces.IPedidosDAO pedidosDAO = DataAccess.Factory.FactoryPedidosDAO.CriarClassePedidosDAO();
-            return new Pedidos(pedidosDAO);
+            Interfaces.IValidacaoPedidos validacao = new ValidacaoPedidos();
+            return new Pedidos(pedidosDAO, validacao);
         }
     }
 }
