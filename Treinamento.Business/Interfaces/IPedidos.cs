@@ -11,5 +11,9 @@ namespace Treinamento.Business.Interfaces
         List<Entities.Pedido> RetornarItens();
 
         Entities.Pedido GravarPedido(Entities.Pedido pedido);
+
+        void AtualizarPedido(Entities.Pedido pedido);
+
+        void ExcluirPedido(int codigo);
     }
 }
