@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="SQL\database\script.sql" />
     <Content Include="SQL\database\treinamento.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
