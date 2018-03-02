@@ -87,5 +87,21 @@ namespace Treinamento.Presentation.Forms
             var itens = _pedidosBO.RetornarItens();
             gridView.DataSource = itens;
         }
+
+        private void gridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CarregarPedido();
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_description_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
