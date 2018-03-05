@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model List<Treinamento.Presentation.Mvc.Models.PedidoModel>
+<table class="table table-bordered">
+    <tr>
+        <th>Codigo</th>
+        <th>Descrição</th>
+        <th>Numero</th>
+        <th>Tipo do pedido</th>
+        <th>Data</th>
+    </tr>
+    @{
+        foreach (var pedido in Model)
+        {
+            <tr>
+                <td>@pedido.Codigo</td>
+                <td>@pedido.Descricao</td>
+                <td>@pedido.Numero</td>
+                <td>@pedido.TipoPedido</td>
+                <td>@pedido.Data</td>
+            </tr>
+        }
+    }
+</table>

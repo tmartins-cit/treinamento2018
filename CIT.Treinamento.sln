@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Treinamento.Presentation.Forms", "Treinamento.Presentation.Forms\Treinamento.Presentation.Forms.csproj", "{0166B7F0-F7E0-4175-8D55-D40370BEB746}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Treinamento.DataAccess", "Treinamento.DataAccess\Treinamento.DataAccess.csproj", "{DB83F75F-49FD-4268-A969-0498F8C27B34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Treinamento.Entities", "Treinamento.Entities\Treinamento.Entities.csproj", "{4391EAC6-2EC8-47FF-8D72-950B9F8BD593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Treinamento.Presentation.Mvc", "Treinamento.Presentation.Mvc\Treinamento.Presentation.Mvc.csproj", "{0CD104C7-E3E9-40A9-BDE9-CA764301F917}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4391EAC6-2EC8-47FF-8D72-950B9F8BD593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4391EAC6-2EC8-47FF-8D72-950B9F8BD593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4391EAC6-2EC8-47FF-8D72-950B9F8BD593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CD104C7-E3E9-40A9-BDE9-CA764301F917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD104C7-E3E9-40A9-BDE9-CA764301F917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD104C7-E3E9-40A9-BDE9-CA764301F917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD104C7-E3E9-40A9-BDE9-CA764301F917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
