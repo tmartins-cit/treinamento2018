@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using Treinamento.Presentation.WebMVC.Models;
 using Treinamento.Entities;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using System.Text;
 
 namespace Treinamento.Presentation.WebMVC.Controllers
 {
@@ -15,16 +19,17 @@ namespace Treinamento.Presentation.WebMVC.Controllers
 
         public PedidosController()
         {
-            _pedidosBO = new PedidosService.PedidosServiceClient();
+            //_pedidosBO = new PedidosService.PedidosServiceClient();
         }
 
         [HttpGet]
         //[OutputCache(Duration = 30)]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             List<Models.PedidosModel> pedidos = new List<Models.PedidosModel>();
 
-            var listaPedidos = _pedidosBO.RetornarItens();
+            //var listaPedidos = _pedidosBO.RetornarItens();
+            var listaPedidos = await HttpPedidosClient.Get();
 
             foreach (var item in listaPedidos)
             {
@@ -40,13 +45,14 @@ namespace Treinamento.Presentation.WebMVC.Controllers
             }
             return View(pedidos);
         }
+
         [HttpGet]
         public ActionResult Criar()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Criar(PedidosModel pedido)
+        public async Task<ActionResult> Criar(PedidosModel pedido)
         {
             if (ModelState.IsValid)
             {
@@ -57,18 +63,23 @@ namespace Treinamento.Presentation.WebMVC.Controllers
                     Data = DateTime.Now,
                     TipoPedido = Entities.Enum.TipoPedido.Interno
                 };
-
-                _pedidosBO.GravarPedido(novoPedido);
-                return RedirectToAction("Index");
+                var resPedido = await HttpPedidosClient.Post(novoPedido);
+                if (resPedido.Descricao != null)
+                {
+                    return RedirectToAction("Index");
+                }
+                //_pedidosBO.GravarPedido(novoPedido);
+                //return RedirectToAction("Index");
             }
 
             return View();
         }
 
         [HttpGet]
-        public ActionResult Editar(int id)
+        public async Task<ActionResult> Editar(int id)
         {
-            var pedido = _pedidosBO.RetornarPedido(id);
+            var pedido = await HttpPedidosClient.Get(id);
+            //var pedido = _pedidosBO.RetornarPedido(id);
             var novoPedidoModel = new Models.PedidosModel
             {
                 Codigo = pedido.Codigo,
@@ -77,7 +88,8 @@ namespace Treinamento.Presentation.WebMVC.Controllers
                 Data = pedido.Data.ToString(),
                 TipoPedido = Enum.GetName(pedido.TipoPedido.GetType(), pedido.TipoPedido)
             };
-            return View(novoPedidoModel);
+
+            return RedirectToAction("Index");
         }
 
         [HttpPut]
@@ -91,18 +103,21 @@ namespace Treinamento.Presentation.WebMVC.Controllers
                     Descricao = pedido.Descricao
                 };
 
-                _pedidosBO.AtualizarPedido(novoPedido);
-
+                HttpPedidosClient.Put(novoPedido);
                 return RedirectToAction("Index");
+
+                //_pedidosBO.AtualizarPedido(novoPedido);
+                //return RedirectToAction("Index");
             }
 
             return View();
         }
 
         [HttpGet]
-        public ActionResult Excluir(int id)
+        public async Task<ActionResult> Excluir(int id)
         {
-            var pedido = _pedidosBO.RetornarPedido(id);
+            var pedido = await HttpPedidosClient.Get(id);
+
             var novoPedidoModel = new Models.PedidosModel
             {
                 Codigo = pedido.Codigo,
@@ -111,13 +126,16 @@ namespace Treinamento.Presentation.WebMVC.Controllers
                 Data = pedido.Data.ToString(),
                 TipoPedido = Enum.GetName(pedido.TipoPedido.GetType(), pedido.TipoPedido)
             };
-            return View(novoPedidoModel);
+
+            return RedirectToAction("Index");
         }
 
         [HttpDelete]
         public ActionResult ConfirmarExcluir(int codigo)
         {
-            _pedidosBO.ExcluirPedido(codigo);
+            //_pedidosBO.ExcluirPedido(codigo);
+            HttpPedidosClient.Del(codigo);
+
             return RedirectToAction("Index");
         }
     }
