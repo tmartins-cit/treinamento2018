@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model List<Treinamento.Presentation.WebMVC.Models.PedidosModel>
+
+<style>
+    .link {
+        text-align: center;
+    }
+</style>
+
+<div class="row" style="margin: 25px 0">
+    <div class="col-md-11">
+        <h1>Lista de Pedidos</h1>
+    </div>
+    <div class="col-md-1" style="height:69px; text-align: right;">
+        <a href="/Pedido/Criar" style="line-height: 69px; vertical-align: middle;"><span class="glyphicon glyphicon-plus"></span></a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="alert-info">Código</th>
+                <th class="alert-info">Descrição</th>
+                <th class="alert-info">Número</th>
+                <th class="alert-info">Data</th>
+                <th class="alert-info">Tipo Pedido</th>
+                <th class="alert-info"></th>
+                <th class="alert-info"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Codigo</td>
+                <td>@item.Descricao</td>
+                <td>@item.Numero</td>
+                <td>@item.Data</td>
+                <td>@item.TipoPedido</td>
+                <td class="link"><a href="@Url.Action("Editar", "Pedidos", new { @id = item.Codigo })"><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td class="link"><a href="@Url.Action("Excluir", "Pedidos", new { @id = item.Codigo })"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

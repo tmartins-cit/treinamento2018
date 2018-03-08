@@ -29,6 +29,11 @@ namespace Treinamento.DataAccess.XML
             return pedido;
         }
 
+        public Pedido BuscarPedido(int codigo)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Pedido> RetornarPedidos()
         {
             return RecuperarListaXml();

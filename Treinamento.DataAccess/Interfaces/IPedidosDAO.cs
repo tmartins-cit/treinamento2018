@@ -16,5 +16,7 @@ namespace Treinamento.DataAccess.Interfaces
         void ExcluirPedido(int codigoPedido);
 
         List<Pedido> RetornarPedidos();
+
+        Pedido BuscarPedido(int codigo);
     }
 }

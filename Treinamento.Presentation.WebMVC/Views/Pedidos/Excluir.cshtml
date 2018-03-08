@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Excluir";
+}
+@model Treinamento.Presentation.WebMVC.Models.PedidosModel
+
+<h2>Excluir Pedido @Model.Codigo</h2>
+
+@using (Html.BeginForm("ConfirmarExcluir", "Pedidos", FormMethod.Post, new { @class = "form-horizontal" }))
+{ 
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    @Html.HiddenFor(m => m.Codigo)
+
+    <ul class="list-group">
+        <li class="list-group-item">Código: @Model.Codigo</li>
+        <li class="list-group-item">Descrição: @Model.Descricao</li>
+        <li class="list-group-item">Número: @Model.Numero</li>
+        <li class="list-group-item">Data: @Model.Data</li>
+        <li class="list-group-item">Tipo do Pedido: @Model.TipoPedido</li>
+    </ul>
+    
+    <div class="form-group">
+        <input type="submit" class="btn" value="Excluir" />
+        <a href="/Pedidos/Index" class="btn btn-default">Cancelar</a>
+    </div>
+}

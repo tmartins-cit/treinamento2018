@@ -15,5 +15,7 @@ namespace Treinamento.Business.Interfaces
         void AtualizarPedido(Entities.Pedido pedido);
 
         void ExcluirPedido(int codigo);
+
+        Entities.Pedido RetornarPedido(int codigo);
     }
 }

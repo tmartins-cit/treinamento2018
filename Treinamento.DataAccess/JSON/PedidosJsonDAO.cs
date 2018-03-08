@@ -20,6 +20,11 @@ namespace Treinamento.DataAccess.JSON
             throw new NotImplementedException();
         }
 
+        public Pedido BuscarPedido(int codigo)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ExcluirPedido(int codigoPedido)
         {
             throw new NotImplementedException();

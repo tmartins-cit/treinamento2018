@@ -38,5 +38,10 @@ namespace Treinamento.Business
         {
             _pedidosDAO.ExcluirPedido(codigo);
         }
+
+        public Entities.Pedido RetornarPedido(int codigo)
+        {
+            return _pedidosDAO.BuscarPedido(codigo);
+        }
     }
 }

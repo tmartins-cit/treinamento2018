@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e5459032-6185-4c54-ac6c-122574140cd1" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:55199/PedidosService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PedidosService.wsdl" MetadataType="Wsdl" ID="67cb8f89-0305-463a-ae1e-ab1815741f67" SourceId="1" SourceUrl="http://localhost:55199/PedidosService.svc?wsdl" />
+    <MetadataFile FileName="PedidosService.xsd" MetadataType="Schema" ID="aaa12a41-ceeb-4c37-84c0-d1ae6c152835" SourceId="1" SourceUrl="http://localhost:55199/PedidosService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PedidosService1.xsd" MetadataType="Schema" ID="d8c4a803-93fd-4cf7-b891-73006274b583" SourceId="1" SourceUrl="http://localhost:55199/PedidosService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PedidosService2.xsd" MetadataType="Schema" ID="1eee18c2-bb1e-4f4a-8f9f-a459ce325453" SourceId="1" SourceUrl="http://localhost:55199/PedidosService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PedidosService3.xsd" MetadataType="Schema" ID="0a2dd2e2-2d12-4f3e-8bd1-07a3221c211e" SourceId="1" SourceUrl="http://localhost:55199/PedidosService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

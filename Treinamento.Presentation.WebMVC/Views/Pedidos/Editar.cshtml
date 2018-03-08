@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Editar";
+}
+
+@model Treinamento.Presentation.WebMVC.Models.PedidosModel 
+
+<h2>Editar Pedido @Model.Codigo</h2>
+
+@using (Html.BeginForm("Editar", "Pedidos", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.HiddenFor(m => m.Codigo)
+    @*
+    @<div class="form-group">
+        @Html.LabelFor(m => m.Numero, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Numero, new { @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.Numero, String.Empty, new { @class = "text-danger" })
+        </div>
+    </div>
+    *@
+    <div class="form-group">
+        @Html.LabelFor(m => m.Descricao, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Descricao, new { @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.Descricao, String.Empty, new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn" value="Editar" />
+        <a href="/Pedidos/Index" class="btn btn-default">Cancelar</a>
+    </div>
+}
+

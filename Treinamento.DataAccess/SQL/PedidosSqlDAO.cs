@@ -89,5 +89,22 @@ namespace Treinamento.DataAccess.SQL
 
 
         }
+        
+        public Pedido BuscarPedido(int codigo)
+        {
+            string sqlQuery = "SELECT cd_pedido as Codigo, nr_numero_pedido as Numero, ds_pedido as Descricao, cd_tipo_pedido as TipoPedido, dt_pedido as Data, in_desligado as Desligado FROM tb_pedido WHERE cd_pedido = @cd_pedido";
+
+            using (SqlConnection sql = new SqlConnection(connectionString))
+            {
+                
+                return sql.QueryFirst<Pedido>(sql: sqlQuery, param: new
+                {
+                    cd_pedido = codigo
+                },
+                            commandType: CommandType.Text
+                            );
+
+            }
+        }
     }
 }
